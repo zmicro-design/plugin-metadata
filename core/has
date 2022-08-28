@@ -1,0 +1,46 @@
+#!/bin/bash
+
+metadata::has() {
+  local typ=$1
+  local name=$2
+
+  if [ -z "$typ" ] || [ -z "$name" ]; then
+    log::error "Usage: metadata::has <type> <name>"
+    return 1
+  fi
+
+  local path="$PLUGIN_DIR/config/metadata/$typ/$name"
+  if [ -e "$path" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+metadata::has_plugin() {
+  metadata::has plugins $1
+}
+
+metadata::has_service() {
+  metadata::has services $1
+}
+
+metadata::has_package() {
+  metadata::has packages $1
+}
+
+metadata::has_daemon() {
+  metadata::has daemons $1
+}
+
+metadata::has_cron() {
+  metadata::has crons $1
+}
+
+export -f metadata::has
+
+export -f metadata::has_plugin
+export -f metadata::has_service
+export -f metadata::has_package
+export -f metadata::has_daemon
+export -f metadata::has_cron

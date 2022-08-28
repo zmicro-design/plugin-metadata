@@ -1,0 +1,44 @@
+#!/bin/bash
+
+name() {
+  local version=$(plugin::get_version $PLUGIN_METADATA_NAME)
+  echo "Go Version Manager ($(color::success $version))"
+}
+
+description() {
+  echo "Go Version Manager is a tool for managing multiple Go versions."
+}
+
+usage() {
+  echo "Usage:"
+  echo "  zmetadata has <type> <name>   - Check whether a typed resource exists"
+  echo "    available type:"
+  echo "      plugin"
+  echo "      service"
+  echo "      package"
+  echo "      daemon"
+  echo "      cron"
+  echo ""
+  echo "  zmetadata help                - Show help"
+}
+
+example() {
+  echo "Example:"
+  echo "  zmetadata has plugin plugin"
+}
+
+core() {
+  name
+  echo ""
+  description
+  echo ""
+  usage
+  echo ""
+  example
+}
+
+run() {
+  core $@
+}
+
+run $@
