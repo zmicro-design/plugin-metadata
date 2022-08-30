@@ -14,6 +14,7 @@ jobs:
   on-success:
     needs: testing
     runs-on: ubuntu-latest
+    container: whatwewant/zmicro:v1
     if: ${{ always() && needs.testing.result == 'success' }}
     steps:
       - name: Notification Feishu
@@ -25,11 +26,12 @@ jobs:
             分支: ${{ github.ref }}
             提交信息: ${{ github.event.head_commit.message }}
             提交人: ${{ github.actor }}
-            状态: 构建成功（https://github.com/${{ github.repository }}/actions/runs/${{ github.run.id }}）
+            状态: 构建成功（https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}）
 
   on-failure:
     needs: testing
     runs-on: ubuntu-latest
+    container: whatwewant/zmicro:v1
     if: ${{ always() && needs.testing.result == 'failure' }}
     steps:
       - name: Notification Feishu
@@ -41,7 +43,7 @@ jobs:
             分支: ${{ github.ref }}
             提交信息: ${{ github.event.head_commit.message }}
             提交人: ${{ github.actor }}
-            状态: 构建失败（https://github.com/${{ github.repository }}/actions/runs/${{ github.run.id }}）
+            状态: 构建失败（https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}）
 
   testing:
     runs-on: ubuntu-latest
